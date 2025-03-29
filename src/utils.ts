@@ -14,7 +14,7 @@ export function uniqueName() {
     const config = {
         dictionaries: [adjectives, animals],
         separator: '-',
-        length: 2
+        length: 2,
     };
     return uniqueNamesGenerator(config) + '-' + randomInt(100, 999);
 }
@@ -26,7 +26,7 @@ export function generateBlob(parameters?: any) {
         ['#BFF098', '#6FD6FF'],
         ['#A1C4FD', '#C2E9FB'],
         ['#11998E', '#38EF7D'],
-        ['#D8B5FF', '#1EAE98']
+        ['#D8B5FF', '#1EAE98'],
     ];
 
     parameters = {
@@ -36,7 +36,7 @@ export function generateBlob(parameters?: any) {
         growth: randomInt(2, 9),
         name: uniqueName(),
         colors: gradientColors[randomInt(0, gradientColors.length - 1)],
-        ...parameters
+        ...parameters,
     };
     const { path: svgPath, seedValue: seed } = blobshape(parameters);
     return { parameters: { ...parameters, seed }, svgPath };
@@ -48,7 +48,7 @@ export function cacheHeaders(maxAgeDays = 365, cacheTags?: string[]): Record<str
     // We're also setting cache tags to be able to later purge via API (see: https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/)
     const headers = {
         'Cache-Control': 'public, max-age=0, must-revalidate', // Tell browsers to always revalidate
-        'Netlify-CDN-Cache-Control': `public, max-age=${maxAgeDays * 86_400}, must-revalidate` // Tells Netlify CDN the max allwed cache duration
+        'Netlify-CDN-Cache-Control': `public, max-age=${maxAgeDays * 86_400}, must-revalidate`, // Tells Netlify CDN the max allwed cache duration
     };
     if (cacheTags?.length > 0) headers['Cache-Tag'] = cacheTags.join(',');
     return headers;

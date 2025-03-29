@@ -22,7 +22,7 @@ export default function NewShape(props: Props) {
         const response = await fetch('/api/blobs', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(blobData.parameters)
+            body: JSON.stringify(blobData.parameters),
         });
         const data = await response.json();
         if (data.message) {
@@ -42,14 +42,22 @@ export default function NewShape(props: Props) {
         <>
             <h2 className="mb-4 text-xl text-center sm:text-xl">New Random Shape</h2>
             <div className="w-full mb-6 bg-white rounded-lg">
-                <div className="p-4 text-center text-gray-900 border-b border-gray-200 min-h-14">{blobData && <span>{blobData.parameters?.name}</span>}</div>
-                <div className="p-4 aspect-square text-primary">{blobData && <ShapePreview {...blobData} />}</div>
+                <div className="p-4 text-center text-gray-900 border-b border-gray-200 min-h-14">
+                    {blobData && <span>{blobData.parameters?.name}</span>}
+                </div>
+                <div className="p-4 aspect-square text-primary">
+                    {blobData && <ShapePreview {...blobData} />}
+                </div>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
                 <button className="btn" onClick={randomizeBlob}>
                     Randomize
                 </button>
-                <button className="btn" onClick={uploadBlob} disabled={uploadDisabled || wasUploaded || !blobData}>
+                <button
+                    className="btn"
+                    onClick={uploadBlob}
+                    disabled={uploadDisabled || wasUploaded || !blobData}
+                >
                     Upload
                 </button>
             </div>

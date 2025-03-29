@@ -6,14 +6,22 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<figure class:list={['diff relative grid w-full overflow-hidden select-none', className]} tabindex="0">
-    <div class="relative col-start-1 row-start-1 overflow-hidden border-r-2 z-1 border-r-white diff-item-1">
+<figure
+    class:list={['diff relative grid w-full overflow-hidden select-none', className]}
+    tabindex="0"
+>
+    <div
+        class="relative col-start-1 row-start-1 overflow-hidden border-r-2 z-1 border-r-white diff-item-1"
+    >
         <slot name="item-1" />
     </div>
     <div class="relative col-start-1 row-start-1 diff-item-2" tabindex="0">
         <slot name="item-2" />
     </div>
-    <div class="relative h-2 col-start-1 row-start-1 overflow-hidden opacity-0 resize-x diff-resizer z-1 min-w-4 cursor-ew-resize top-1/2"></div>
+    <div
+        class="relative h-2 col-start-1 row-start-1 overflow-hidden opacity-0 resize-x diff-resizer z-1 min-w-4 cursor-ew-resize top-1/2"
+    >
+    </div>
 </figure>
 
 <style>

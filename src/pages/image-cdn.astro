@@ -76,7 +76,11 @@ detection, so format is set to WebP.
                 <Image src={corgi} alt="Corgi" class="border-2 border-white rounded-lg" />
                 <figcaption class="mt-2 text-sm italic">
                     Credit: photo by <a href="https://unsplash.com/@alvannee">Alvan Nee</a> on
-                    <a href="https://unsplash.com/photos/long-coated-white-and-brown-dog-lvFlpqEvuRM"> Unsplash </a>
+                    <a
+                        href="https://unsplash.com/photos/long-coated-white-and-brown-dog-lvFlpqEvuRM"
+                    >
+                        Unsplash
+                    </a>
                 </figcaption>
             </figure>
         </section>
@@ -86,7 +90,9 @@ detection, so format is set to WebP.
                 <Fragment slot="item-1">
                     <div>
                         <div class="relative">
-                            <span class="hidden absolute py-1.5 px-2.5 text-sm rounded-md bg-gray-900/70 top-2.5 left-2.5"></span>
+                            <span
+                                class="hidden absolute py-1.5 px-2.5 text-sm rounded-md bg-gray-900/70 top-2.5 left-2.5"
+                            ></span>
                             <img src={sampleImage} alt="Corgi" />
                         </div>
                     </div>
@@ -94,7 +100,9 @@ detection, so format is set to WebP.
                 <Fragment slot="item-2">
                     <div>
                         <div class="relative">
-                            <span class="hidden absolute py-1.5 px-2.5 text-sm rounded-md bg-gray-900/70 top-2.5 right-2.5"></span>
+                            <span
+                                class="hidden absolute py-1.5 px-2.5 text-sm rounded-md bg-gray-900/70 top-2.5 right-2.5"
+                            ></span>
 
                             <img srcset={sampleImageSrcSet} alt="Corgi" />
                         </div>
@@ -119,7 +127,9 @@ detection, so format is set to WebP.
     });
 
     function showImageSize(image: HTMLImageElement) {
-        const imageEntry = window?.performance?.getEntriesByName(image.currentSrc)?.[0] as PerformanceResourceTiming;
+        const imageEntry = window?.performance?.getEntriesByName(
+            image.currentSrc
+        )?.[0] as PerformanceResourceTiming;
         if (imageEntry && imageEntry.encodedBodySize) {
             const imageOverlay = image.previousElementSibling;
             imageOverlay.classList.remove('hidden');

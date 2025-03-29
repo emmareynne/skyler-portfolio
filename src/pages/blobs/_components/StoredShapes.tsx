@@ -17,7 +17,7 @@ export default function StoredShapes(props: Props) {
         console.log('Fetching keys...');
         const response = await fetch('/api/blobs', {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
         });
         const data = await response.json();
         if (data.keys) {
@@ -29,7 +29,7 @@ export default function StoredShapes(props: Props) {
         setSelectedKey(key);
         const params = new URLSearchParams({ key });
         const response = await fetch(`/api/blob/?${params}`, {
-            method: 'GET'
+            method: 'GET',
         });
         const data = await response.json();
         if (data.blob) {
@@ -53,7 +53,9 @@ export default function StoredShapes(props: Props) {
                                     key={keyName}
                                     className={
                                         'inline-flex items-center justify-center w-full px-4 py-1.5 rounded-sm text-sm text-gray-900 cursor-pointer text-center transition hover:bg-complementary/20' +
-                                        (selectedKey === keyName ? ' bg-complementary/20 pointer-events-none' : '')
+                                        (selectedKey === keyName
+                                            ? ' bg-complementary/20 pointer-events-none'
+                                            : '')
                                     }
                                     onClick={() => {
                                         getBlobByKey(keyName);

@@ -17,9 +17,9 @@ const html = await new Marked()
             highlight(code, lang, props) {
                 return highlighter.codeToHtml(code, {
                     lang,
-                    theme: 'min-dark'
+                    theme: 'min-dark',
                 });
-            }
+            },
         })
     )
     .parse(content);

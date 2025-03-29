@@ -14,7 +14,7 @@ export const GET: APIRoute = async (context) => {
     const blob = await blobStore.get(key, { type: 'json' });
     return new Response(
         JSON.stringify({
-            blob
+            blob,
         })
     );
 };
