@@ -1,0 +1,148 @@
+---
+export interface Props {
+    items: {
+        title: string;
+        description: string;
+        imageUrl: string;
+        link?: string;
+        ctaText?: string;
+        tags?: string[];
+        author?: string;
+        authorImage?: string;
+        date?: string;
+    }[];
+}
+
+const { items } = Astro.props;
+---
+
+<!-- Quick navigation links -->
+{(items || []).length > 0 && (
+    <div class="mb-8 overflow-x-auto relative">
+        <div class="flex gap-3 pb-2 border-b border-gray-800 pr-8">
+            {/* Scroll indicator */}
+            <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-gray-900 to-transparent pointer-events-none flex items-center justify-end pr-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            {(items || []).map((item, index) => (
+                <a 
+                    href={`#item-${index}`}
+                    class="px-4 py-2 text-sm font-medium text-gray-300 rounded-full whitespace-nowrap transition-all duration-300 hover:text-white hover:bg-indigo-600/80 hover:shadow-md hover:shadow-indigo-500/20 hover:-translate-y-1 flex items-center gap-1.5"
+                >
+                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-600/30 text-xs">{index + 1}</span>
+                    {item.title}
+                </a>
+            ))}
+        </div>
+    </div>
+)}
+
+<!-- Floating Navigation Bar with Alpine.js -->
+<div 
+    id="floating-nav"
+    x-data="floatingNav"
+    x-cloak
+    class="fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-in-out"
+    :class="show ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
+>
+    <div class="bg-indigo-600 py-3 px-4 shadow-lg shadow-indigo-500/20 border-b border-indigo-500 flex gap-3 items-center justify-center sticky top-0">
+        <span class="text-white text-xs font-medium mr-1">Jump to:</span>
+        {(items || []).map((item, index) => (
+            <a 
+                href={`#item-${index}`} 
+                data-index={index}
+                data-id={`item-${index}`}
+                class="px-3 py-1.5 text-xs font-medium text-white rounded-full whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-indigo-700 hover:shadow-md hover:shadow-indigo-500/20 hover:-translate-y-0.5 flex items-center gap-1"
+                :class="activeItem === `item-${index}` ? 'bg-white text-indigo-700' : ''"
+            >
+                <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20 text-[10px]">{index + 1}</span>
+                <span class="hidden sm:inline">{item.title.length > 15 ? item.title.substring(0, 15) + '...' : item.title}</span>
+            </a>
+        ))}
+
+    </div>
+</div>
+
+<script is:inline>
+    // Define the Alpine.js component for floating navigation
+    document.addEventListener('astro:page-load', () => {
+        // Register the floatingNav component
+        window.Alpine.data('floatingNav', () => ({
+            show: false,
+            closed: false,
+            activeItem: null,
+            
+            init() {
+                this.checkScroll();
+                window.addEventListener('scroll', () => this.checkScroll());
+                this.updateActiveItem();
+                window.addEventListener('scroll', () => this.updateActiveItem());
+            },
+            
+            checkScroll() {
+                if (this.closed) return;
+                this.show = window.scrollY > 50;
+            },
+            
+            updateActiveItem() {
+                const items = document.querySelectorAll('[id^="item-"]');
+                const offset = 200;
+                
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top <= offset && rect.bottom >= offset) {
+                        this.activeItem = item.id;
+                    }
+                });
+            },
+            
+            closeNav() {
+                this.show = false;
+                this.closed = true;
+                
+                // Reset after 30 minutes
+                setTimeout(() => {
+                    this.closed = false;
+                    this.checkScroll();
+                }, 30 * 60 * 1000);
+            }
+        }));
+        
+        // Handle click on navigation links for highlight effect
+        document.querySelectorAll('a[href^="#item-"]').forEach(link => {
+            link.addEventListener('click', function() {                
+                // Add highlight class to target after a short delay
+                const targetId = this.getAttribute('href').substring(1);
+                setTimeout(() => {
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.classList.add('item-highlight');
+                        setTimeout(() => {
+                            targetElement.classList.remove('item-highlight');
+                        }, 2000);
+                    }
+                }, 500);
+            });
+        });
+    });
+</script>
+
+<style>
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px; /* Adjust based on your header height */
+    }
+    
+    /* Highlight animation for the target element */
+    @keyframes highlight-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+    }
+    
+    .item-highlight {
+        animation: highlight-pulse 2s ease-out 1;
+    }
+</style>

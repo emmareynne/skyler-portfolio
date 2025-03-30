@@ -1,9 +1,9 @@
 ---
-import '../../src/styles/globals.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Head from '../components/Head.astro';
-import PageTransition from '../components/PageTransition.astro';
+import '../styles/globals.css';
+import Navbar from '../components/layout/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+import Head from '../components/layout/Head.astro';
+import ScrollToTop from '../components/layout/ScrollToTop.astro';
 
 interface Props {
     title: string;
@@ -13,17 +13,23 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
-    <Head title={title} />
-    <body class="antialiased text-white bg-complementary">
-        <div class="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
-            <div class="flex flex-col w-full max-w-5xl mx-auto grow">
-                <Header />
-                <main class="grow">
-                    <slot />
-                </main>
-                <Footer />
-            </div>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <Head title={title} />
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    </head>
+    <body class="antialiased bg-gray-900 text-white">
+        <!-- Radial gradient background -->
+        <div class="fixed inset-0 w-full h-full bg-gradient-radial from-gray-800/90 via-gray-900/70 to-black -z-10"></div>
+        
+        <!-- Main content container -->
+        <div class="relative flex flex-col min-h-screen z-10 overflow-x-hidden">
+            <Navbar />
+            <main class="flex-grow w-full">
+                <slot />
+            </main>
+            <Footer />
         </div>
+        <ScrollToTop />
     </body>
 </html>

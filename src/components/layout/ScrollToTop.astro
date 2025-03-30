@@ -1,0 +1,61 @@
+---
+---
+
+<button
+    id="scrollToTopBtn"
+    class="fixed bottom-8 right-8 z-50 rounded-full bg-indigo-600 p-3 text-white shadow-lg transition-all duration-300 opacity-0 translate-y-10 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+    aria-label="Scroll to top"
+    transition:persist
+>
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+    >
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 10l7-7m0 0l7 7m-7-7v18"
+        />
+    </svg>
+</button>
+
+<script>
+    // Function to handle the scroll event
+    function handleScroll() {
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        
+        if (window.scrollY > 300) {
+            scrollToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+            scrollToTopBtn.classList.add('opacity-100', 'translate-y-0');
+        } else {
+            scrollToTopBtn.classList.add('opacity-0', 'translate-y-10');
+            scrollToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+        }
+    }
+
+    // Function to scroll to top with smooth animation
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Add event listeners when the DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Add click event listener to the button
+        scrollToTopBtn.addEventListener('click', scrollToTop);
+        
+        // Initial check in case the page is already scrolled on load
+        handleScroll();
+    });
+</script>

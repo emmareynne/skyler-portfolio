@@ -1,7 +1,70 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PortfolioGrid from '../../components/portfolio/PortfolioGrid.astro';
+import Hero from '../../components/portfolio/Hero.astro';
+
+// Sample on-camera portfolio items
+const onCameraItems = [
+    {
+        title: "Film Acting",
+        description: "Lead and supporting roles in independent and feature films.",
+        imageUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        category: "Film",
+        link: "/on-camera/film"
+    },
+    {
+        title: "Television",
+        description: "Appearances in television series, sitcoms, and dramas.",
+        imageUrl: "https://images.unsplash.com/photo-1586899028174-e7098604235b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        category: "TV",
+        link: "/on-camera/television"
+    },
+    {
+        title: "Commercial Acting",
+        description: "On-screen talent for national and regional commercials.",
+        imageUrl: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        category: "Commercial",
+        link: "/on-camera/commercial"
+    },
+    {
+        title: "Web Series",
+        description: "Lead and supporting roles in digital web series productions.",
+        imageUrl: "https://images.unsplash.com/photo-1616469829941-c7200edec809?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        category: "Web",
+        link: "/on-camera/web-series"
+    },
+    {
+        title: "Music Videos",
+        description: "Featured performances in music videos for various artists.",
+        imageUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        category: "Music",
+        link: "/on-camera/music-videos"
+    },
+    {
+        title: "Corporate Videos",
+        description: "Professional on-camera talent for corporate training and promotional videos.",
+        imageUrl: "https://images.unsplash.com/photo-1551847038-a3850e69e2c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        category: "Corporate",
+        link: "/on-camera/corporate"
+    }
+];
 ---
 
-<Layout title="Contact">
-    <h1 class="mb-10">Skyler's On Camera</h1>
+<Layout title="On-Camera Work | Skyler Yuda">
+    <Hero 
+        title="On-Camera Work" 
+        subtitle="Professional actor with experience in film, television, commercials, and digital media."
+        backgroundImage="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+    >
+        <a href="/contact" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Hire Me
+        </a>
+        <a href="#portfolio" class="text-sm font-semibold leading-6 text-white">
+            View Portfolio <span aria-hidden="true">→</span>
+        </a>
+    </Hero>
+    
+    <div id="portfolio">
+        <PortfolioGrid items={onCameraItems} title="On-Camera Portfolio" />
+    </div>
 </Layout>

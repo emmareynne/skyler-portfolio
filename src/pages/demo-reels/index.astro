@@ -1,7 +1,54 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/portfolio/Hero.astro';
+import ImageBannerList from '../../components/portfolio/ImageBannerList.astro';
+
+const demoReels = [
+    {
+        title: "Voice Acting Demo Reel",
+        description: "A comprehensive showcase of my voice acting range, featuring commercial, character, and narrative work. This reel demonstrates my versatility across different styles and tones.",
+        imageUrl: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        ctaText: "Watch Reel",
+        tags: ["Commercial", "Character", "Narration"],
+        date: "Updated Jan 2025"
+    },
+    {
+        title: "Commercial Acting Reel",
+        description: "Highlights from my on-camera work in national and regional commercials. This reel showcases my ability to deliver compelling and authentic performances for various brands and products.",
+        imageUrl: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        ctaText: "Watch Reel",
+        tags: ["National", "Regional", "Broadcast"],
+        date: "Updated Dec 2024"
+    },
+    {
+        title: "Film & Television Reel",
+        description: "Selected scenes from my work in film and television productions. This reel demonstrates my range as a dramatic actor and my ability to embody diverse characters across different genres.",
+        imageUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        ctaText: "Watch Reel",
+        tags: ["Drama", "Comedy", "Independent"],
+        date: "Updated Feb 2025"
+    },
+    {
+        title: "Character Animation Voice Reel",
+        description: "A collection of my voice performances for animated characters. This reel showcases my ability to create distinctive character voices and bring animated personalities to life.",
+        imageUrl: "https://images.unsplash.com/photo-1616469829941-c7200edec809?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        ctaText: "Watch Reel",
+        tags: ["Animation", "Character", "Video Games"],
+        date: "Updated Mar 2025"
+    }
+];
 ---
 
-<Layout title="Contact">
-    <h1 class="mb-10">Skyler's Demo Reels</h1>
+<Layout title="Demo Reels | Skyler Yuda">
+    <div id="reels">
+        <ImageBannerList 
+            items={demoReels} 
+            title="Featured Demo Reels" 
+            subtitle="Watch samples of my professional voice and on-camera work across various genres and styles."
+        />
+    </div>
 </Layout>

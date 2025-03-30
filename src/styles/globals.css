@@ -1,8 +1,13 @@
 @import 'tailwindcss';
 
+/* Hide elements until Alpine.js initializes them */
+[x-cloak] {
+    display: none !important;
+}
+
 @theme {
     --font-sans:
-        'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Yuji Syuku', 'Yuji Mai', serif, 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --color-primary: #f67280;
     --color-primary-content: #101828;
@@ -17,6 +22,10 @@
 }
 
 @layer base {
+    body {
+        font-family: 'Yuji Syuku', 'Yuji Mai', serif;
+    }
+    
     h1 {
         @apply text-4xl font-bold tracking-tight sm:text-5xl;
     }
@@ -26,7 +35,11 @@
     }
 
     a:not(.btn) {
-        @apply underline transition hover:opacity-80;
+        @apply no-underline transition hover:opacity-80;
+    }
+    
+    .link-underline {
+        @apply border-b border-current;
     }
 
     pre {

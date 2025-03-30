@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+    src: ImageMetadata;
+    alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<div class="fixed bottom-0 left-0 w-full h-full z-[999] pointer-events-none">
+    <Image 
+        src={src} 
+        alt={alt}
+        class="absolute bottom-0 left-0 h-full w-auto object-contain pl-16 md:pl-32 lg:pl-48 grayscale opacity-50 scale-x-[-1]"
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high"
+    />
+</div>
+
+<script>
+    // Script to hide headshot when footer is visible
+    document.addEventListener('DOMContentLoaded', () => {
+        const headshot = document.querySelector('.fixed.bottom-0.left-0.w-full.h-full.z-\\[999\\]');
+        const footer = document.querySelector('footer');
+        
+        if (headshot && footer) {
+            const updateHeadshotVisibility = () => {
+                const viewportHeight = window.innerHeight;
+                const scrollPosition = window.scrollY || window.pageYOffset;
+                const footerPosition = footer.getBoundingClientRect().top + scrollPosition;
+                
+                if (scrollPosition + viewportHeight > footerPosition) {
+                    (headshot as HTMLElement).style.display = 'none';
+                } else {
+                    (headshot as HTMLElement).style.display = 'block';
+                }
+            };
+            
+            // Update on load, scroll and resize
+            updateHeadshotVisibility();
+            window.addEventListener('scroll', updateHeadshotVisibility);
+            window.addEventListener('resize', updateHeadshotVisibility);
+        }
+    });
+</script>

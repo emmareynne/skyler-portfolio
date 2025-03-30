@@ -1,0 +1,115 @@
+---
+import BannerListItem from './BannerListItem.astro';
+import QuickNav from './QuickNav.astro';
+
+export interface Props {
+    items: {
+        title: string;
+        description: string;
+        imageUrl: string;
+        link?: string;
+        ctaText?: string;
+        tags?: string[];
+        author?: string;
+        authorImage?: string;
+        date?: string;
+    }[];
+    title?: string;
+    subtitle?: string;
+    columns?: 1 | 2 | 3 | 4;
+}
+
+const { items, title, subtitle, columns = 3 } = Astro.props;
+
+// Generate animation delays for staggered effect
+const baseDelay = 100;
+const stepDelay = 80;
+
+// Create animation delays for each item
+const getAnimationDelay = (index: number) => {
+    return baseDelay + (index * stepDelay);
+};
+
+const getColumnClass = (cols: number) => {
+    switch(cols) {
+        case 1: return '';
+        case 2: return 'sm:grid-cols-2';
+        case 3: return 'sm:grid-cols-2 lg:grid-cols-3';
+        case 4: return 'sm:grid-cols-2 lg:grid-cols-4';
+        default: return 'sm:grid-cols-2 lg:grid-cols-3';
+    }
+};
+---
+
+<div class="bg-gray-900 py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        {(title || subtitle) && (
+            <div class="mx-auto max-w-2xl lg:mx-0 mb-10">
+                {title && <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">{title}</h2>}
+                {subtitle && <p class="mt-2 text-lg leading-8 text-gray-300">{subtitle}</p>}
+            </div>
+        )}
+        
+        {/* Quick navigation links */}
+        <QuickNav items={items} />
+        <ul role="list" class="divide-y divide-white/10">
+            {(items || []).map((item, index) => (
+                <li id={`item-${index}`} class="scroll-mt-24">
+                    <BannerListItem 
+                        title={item.title}
+                        description={item.description}
+                        imageUrl={item.imageUrl}
+                        link={item.link}
+                        ctaText={item.ctaText}
+                        tags={item.tags}
+                        author={item.author}
+                        authorImage={item.authorImage}
+                        date={item.date}
+                    />
+                </li>
+            ))}
+        </ul>
+    </div>
+</div>
+
+<!-- The floating navigation has been moved to the QuickNav component -->
+
+<style>
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px; /* Adjust based on your header height */
+    }
+    
+    /* Highlight animation for the target element */
+    @keyframes highlight-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+    }
+    
+    .item-highlight {
+        animation: highlight-pulse 2s ease-out 1;
+    }
+</style>
+
+<script is:inline>
+    // Add highlight animation when scrolling to an item
+    document.addEventListener('astro:page-load', () => {
+        // Handle click on navigation links for highlight effect
+        document.querySelectorAll('a[href^="#item-"]').forEach(link => {
+            link.addEventListener('click', function() {                
+                // Add highlight class to target after a short delay
+                const targetId = this.getAttribute('href').substring(1);
+                setTimeout(() => {
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.classList.add('item-highlight');
+                        setTimeout(() => {
+                            targetElement.classList.remove('item-highlight');
+                        }, 2000);
+                    }
+                }, 500);
+            });
+        });
+    });
+</script>

@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/portfolio/Hero.astro';
+
+// Sample bio information
+const skills = [
+    { category: "Voice Acting", items: ["Commercial", "Character", "Narration", "Animation", "Video Games"] },
+    { category: "On-Camera", items: ["Film", "Television", "Commercials", "Corporate", "Digital Media"] },
+    { category: "Technical", items: ["Studio Recording", "Self-Recording", "Remote Direction", "ADR", "Voiceover Editing"] },
+    { category: "Languages", items: ["English (Native)", "Spanish (Conversational)"] }
+];
+
+const experience = [
+    {
+        title: "Lead Voice Actor",
+        company: "Animation Studio XYZ",
+        period: "2022 - Present",
+        description: "Voice performance for lead character in animated series with over 50 episodes."
+    },
+    {
+        title: "Commercial Voice Talent",
+        company: "National Brands",
+        period: "2020 - Present",
+        description: "Voice work for national television and radio campaigns for major brands."
+    },
+    {
+        title: "On-Camera Actor",
+        company: "Various Productions",
+        period: "2018 - Present",
+        description: "Supporting roles in independent films and television productions."
+    }
+];
+
+const education = [
+    {
+        institution: "Performing Arts Academy",
+        degree: "BFA in Acting",
+        year: "2018",
+        description: "Specialized in voice and on-camera performance techniques."
+    },
+    {
+        institution: "Voice Acting Workshop",
+        degree: "Professional Certification",
+        year: "2019",
+        description: "Intensive training in commercial and character voice acting."
+    }
+];
+---
+
+<Layout title="About Me | Skyler Yuda">
+    <Hero 
+        title="About Me" 
+        subtitle="Professional actor specializing in voice & on-camera work with a passion for bringing characters to life."
+        backgroundImage="https://images.unsplash.com/photo-1567593810070-7a3d471af022?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+    >
+        <a href="/contact" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Contact Me
+        </a>
+        <a href="#bio" class="text-sm font-semibold leading-6 text-white">
+            Learn More <span aria-hidden="true">→</span>
+        </a>
+    </Hero>
+    
+    <div id="bio" class="bg-gray-900 py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:mx-0">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Biography</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    Skyler Yuda is a versatile actor with a passion for both voice and on-camera work. With a background in performing arts and specialized training in voice acting, Skyler brings characters to life with authenticity and creativity.
+                </p>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    Whether behind the microphone or in front of the camera, Skyler approaches each project with dedication and professionalism. From commercial voice overs to character work in animation and video games, to on-camera performances in film and television, Skyler delivers compelling performances that connect with audiences.
+                </p>
+            </div>
+            
+            <!-- Skills Section -->
+            <div class="mx-auto mt-16 max-w-2xl lg:mx-0 lg:max-w-none">
+                <h3 class="text-2xl font-bold tracking-tight text-white">Skills & Expertise</h3>
+                <dl class="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                    {skills.map((skillGroup) => (
+                        <div>
+                            <dt class="text-base font-semibold leading-7 text-white">{skillGroup.category}</dt>
+                            <dd class="mt-1 flex flex-col gap-y-1 text-base leading-7 text-gray-400">
+                                <ul class="list-disc pl-5">
+                                    {skillGroup.items.map((item) => (
+                                        <li>{item}</li>
+                                    ))}
+                                </ul>
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
+            </div>
+            
+            <!-- Experience Section -->
+            <div class="mx-auto mt-16 max-w-2xl lg:mx-0">
+                <h3 class="text-2xl font-bold tracking-tight text-white">Experience</h3>
+                <div class="mt-6 space-y-10 divide-y divide-gray-800 border-t border-gray-800">
+                    {experience.map((job) => (
+                        <div class="pt-8 sm:flex">
+                            <div class="sm:w-1/4">
+                                <p class="text-base font-semibold leading-7 text-white">{job.period}</p>
+                            </div>
+                            <div class="mt-2 sm:mt-0 sm:w-3/4">
+                                <h4 class="text-lg font-semibold leading-7 text-white">{job.title}</h4>
+                                <p class="text-base leading-7 text-indigo-400">{job.company}</p>
+                                <p class="mt-2 text-base leading-7 text-gray-400">{job.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            
+            <!-- Education Section -->
+            <div class="mx-auto mt-16 max-w-2xl lg:mx-0">
+                <h3 class="text-2xl font-bold tracking-tight text-white">Education</h3>
+                <div class="mt-6 space-y-10 divide-y divide-gray-800 border-t border-gray-800">
+                    {education.map((edu) => (
+                        <div class="pt-8 sm:flex">
+                            <div class="sm:w-1/4">
+                                <p class="text-base font-semibold leading-7 text-white">{edu.year}</p>
+                            </div>
+                            <div class="mt-2 sm:mt-0 sm:w-3/4">
+                                <h4 class="text-lg font-semibold leading-7 text-white">{edu.degree}</h4>
+                                <p class="text-base leading-7 text-indigo-400">{edu.institution}</p>
+                                <p class="mt-2 text-base leading-7 text-gray-400">{edu.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="mx-auto mt-16 max-w-2xl text-center lg:mx-0 lg:max-w-none">
+                <h3 class="text-2xl font-bold tracking-tight text-white">Ready to work together?</h3>
+                <p class="mt-4 text-lg leading-8 text-gray-300">
+                    Get in touch to discuss your project and how Skyler can help bring your vision to life.
+                </p>
+                <div class="mt-6 flex items-center justify-center gap-x-6">
+                    <a href="/contact" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Contact Me
+                    </a>
+                    <a href="/demo-reels" class="text-sm font-semibold leading-6 text-white">
+                        View Demo Reels <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

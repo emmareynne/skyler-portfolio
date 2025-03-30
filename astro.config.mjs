@@ -12,4 +12,7 @@ export default defineConfig({
     },
     integrations: [react()],
     adapter: netlify(),
+    output: 'server',
+    prefetch: true,
+    transitions: true
 });
