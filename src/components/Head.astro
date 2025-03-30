@@ -1,0 +1,86 @@
+---
+import { AstroFont } from 'astro-font';
+
+interface Props {
+    title: string;
+    description?: string;
+    ogImage?: string;
+}
+
+const { 
+    title, 
+    description = "Skyler Yuda - Voice and On-Camera Actor", 
+    ogImage = "/images/og-image.jpg" 
+} = Astro.props;
+---
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Alpine.js x-cloak directive to hide elements until Alpine is loaded -->
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Fonts -->
+    <AstroFont
+        config={[
+            {
+                name: 'Inter',
+                src: [
+                    {
+                        style: 'normal',
+                        weight: '100 900',
+                        path: '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2'
+                    }
+                ],
+                preload: true,
+                display: 'swap',
+                selector: 'body',
+                fallback: 'sans-serif'
+            },
+            {
+                name: 'Metal Mania',
+                googleFontsURL: 'https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap',
+                src: [],
+                preload: true,
+                display: 'swap',
+                selector: '.font-metal',
+                fallback: 'sans-serif'
+            },
+            {
+                name: 'Yuji Syuku',
+                googleFontsURL: 'https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap',
+                src: [],
+                preload: true,
+                display: 'swap',
+                selector: '.font-yuji',
+                fallback: 'serif'
+            }
+        ]}
+    />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <!-- Alpine.js for interactivity and transitions -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <slot />
+</head>
