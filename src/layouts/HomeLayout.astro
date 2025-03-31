@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import Head from '../components/layout/Head.astro';
 import ScrollToTop from '../components/layout/ScrollToTop.astro';
+import BlobBackground from '../components/ui/BlobBackground.astro';
 
 
 interface Props {
@@ -14,24 +15,26 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" className="scroll-smooth font-yuji">
+<html lang="en" class="scroll-smooth">
     <head>
         <Head title={title} />
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     </head>
-    <body class="antialiased bg-gray-900 overflow-hidden md:overflow-auto">
-        <!-- Main content container -->
-        <div class="relative flex flex-col min-h-screen z-10">
-            <Navbar />
-            <main class="flex-grow w-full">
-                <slot />
-            </main>
-        </div>
-        <!-- Fixed footer at the bottom -->
-        <div class="fixed bottom-0 left-0 right-0 z-20">
-            <Footer />
-        </div>
-        <ScrollToTop />
+    <body class="antialiased bg-gray-900 overflow-auto">
+        <BlobBackground mood="creative" opacity={50} blobCount={9} speed={0.5}>
+            <!-- Main content container -->
+            <div class="flex flex-col min-h-screen w-full overflow-x-hidden">
+                <Navbar />
+                <main>
+                    <slot />
+                </main>
+                <!-- Fixed footer at the bottom -->
+                <div class="fixed bottom-0 left-0 right-0 z-20">
+                    <Footer />
+                </div>
+                <ScrollToTop />
+            </div>
+        </BlobBackground>
     </body>
 </html>

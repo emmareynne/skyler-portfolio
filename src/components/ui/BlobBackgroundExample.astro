@@ -1,0 +1,80 @@
+---
+import BlobBackground from './BlobBackground.astro';
+---
+
+<div class="space-y-16">
+    <!-- Calm mood example -->
+    <div class="relative isolate overflow-hidden py-16 sm:py-24 bg-gray-900">
+        <BlobBackground mood="calm" opacity={20} blobCount={3} speed={0.5} />
+        
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold text-white font-heading">Calm Mood</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    This background uses a calm color palette with soft blues and teals.
+                    Perfect for sections that need a serene, peaceful atmosphere.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Energetic mood example -->
+    <div class="relative isolate overflow-hidden py-16 sm:py-24 bg-gray-900">
+        <BlobBackground mood="energetic" opacity={20} blobCount={4} speed={0.7} />
+        
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold text-white font-heading">Energetic Mood</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    This background uses vibrant oranges and yellows to create an energetic, 
+                    dynamic atmosphere. Great for call-to-action sections.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional mood example -->
+    <div class="relative isolate overflow-hidden py-16 sm:py-24 bg-gray-900">
+        <BlobBackground mood="professional" opacity={20} blobCount={3} speed={0.4} />
+        
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold text-white font-heading">Professional Mood</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    This background uses deep blues and purples for a professional, 
+                    trustworthy appearance. Ideal for portfolio or experience sections.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Creative mood example -->
+    <div class="relative isolate overflow-hidden py-16 sm:py-24 bg-gray-900">
+        <BlobBackground mood="creative" opacity={20} blobCount={5} speed={0.6} />
+        
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold text-white font-heading">Creative Mood</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    This background uses vibrant pinks and blues for a creative, 
+                    artistic feel. Perfect for showcasing creative work.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Elegant mood example -->
+    <div class="relative isolate overflow-hidden py-16 sm:py-24 bg-gray-900">
+        <BlobBackground mood="elegant" opacity={20} blobCount={3} speed={0.3} />
+        
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold text-white font-heading">Elegant Mood</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    This background uses soft, muted earth tones for an elegant, 
+                    sophisticated appearance. Great for testimonials or about sections.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

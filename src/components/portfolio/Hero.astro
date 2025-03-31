@@ -43,11 +43,11 @@ const { title, subtitle, backgroundImage = '/images/hero-bg.jpg' } = Astro.props
                 </div>
                 <div class="text-center">
                     <h1
-                        class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl slide-in-left"
+                        class={`text-5xl font-semibold text-balance text-white sm:text-7xl slide-in-left ${Astro.url.pathname === '/' ? 'font-display' : 'font-heading'}`}
                     >
                         {title}
                     </h1>
-                    <p class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8 slide-in-left" style="animation-delay: 120ms;">
+                    <p class="mt-8 text-lg font-medium text-pretty text-gray-300 sm:text-xl/8 slide-in-left" style="animation-delay: 120ms;">
                         {subtitle}
                     </p>
                     <div class="mt-10 flex items-center justify-center gap-x-6 fade-in" style="animation-delay: 240ms;">

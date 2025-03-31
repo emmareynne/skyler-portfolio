@@ -1,0 +1,361 @@
+---
+export interface Props {
+    mood?: 'calm' | 'energetic' | 'professional' | 'creative' | 'elegant';
+    opacity?: number;
+    blobCount?: number;
+    speed?: number;
+}
+
+const { 
+    mood = 'calm', 
+    opacity = 40, 
+    blobCount = 3,
+    speed = 1
+} = Astro.props;
+
+// Color schemes based on different moods (3 colors per mood)
+const colorSchemes = {
+    calm: ['#8ecae6', '#219ebc', '#023047'],
+    energetic: ['#ffb703', '#fb8500', '#ef476f'],
+    professional: ['#4361ee', '#3a0ca3', '#7209b7'],
+    creative: ['#f72585', '#7209b7', '#4cc9f0'],
+    elegant: ['#ccd5ae', '#e9edc9', '#d4a373']
+};
+
+const colors = colorSchemes[mood];
+
+// Generate a unique ID for this instance
+const instanceId = Math.random().toString(36).substring(2, 9);
+---
+
+<div class="relative">
+    <!-- Container for blobs with proper z-index -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
+        <!-- Top fade gradient -->
+        <div class="absolute top-0 left-0 right-0 h-40 pointer-events-none z-10 bg-gradient-to-b from-gray-900 via-gray-900/50 to-transparent"></div>
+        <!-- Bottom fade gradient -->
+        <div class="absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-10 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+        <!-- First blob -->
+        <div class="absolute top-[-25%] left-[5%] w-[35vw] h-[35vw] rounded-full mix-blend-multiply filter blur-3xl" 
+             style={`background-color: ${colors[0]}; opacity: ${opacity/100}; animation: blob-float-1 25s ease-in-out infinite;`}></div>
+        
+        <!-- Second blob -->
+        <div class="absolute top-[40%] right-[-15%] w-[28vw] h-[28vw] rounded-full mix-blend-multiply filter blur-3xl" 
+             style={`background-color: ${colors[1]}; opacity: ${opacity/100}; animation: blob-float-2 28s ease-in-out infinite;`}></div>
+        
+        <!-- Third blob -->
+        <div class="absolute bottom-[-30%] left-[30%] w-[45vw] h-[45vw] rounded-full mix-blend-multiply filter blur-3xl" 
+             style={`background-color: ${colors[2]}; opacity: ${opacity/100}; animation: blob-float-3 32s ease-in-out infinite;`}></div>
+        
+        <!-- Fourth blob (smaller) -->
+        <div class="absolute top-[15%] left-[60%] w-[20vw] h-[20vw] rounded-full mix-blend-multiply filter blur-3xl" 
+             style={`background-color: ${colors[0]}; opacity: ${(opacity/100) * 0.7}; animation: blob-float-4 22s ease-in-out infinite;`}></div>
+        
+        <!-- Fifth blob (tiny) -->
+        <div class="absolute bottom-[25%] right-[25%] w-[15vw] h-[15vw] rounded-full mix-blend-multiply filter blur-3xl" 
+             style={`background-color: ${colors[1]}; opacity: ${(opacity/100) * 0.5}; animation: blob-float-5 20s ease-in-out infinite;`}></div>
+    </div>
+
+    <!-- Dynamic blobs with JavaScript -->
+    <div id={`blob-container-${instanceId}`} class="absolute inset-0 overflow-hidden pointer-events-none" style="z-index: -1;" aria-hidden="true"></div>
+    
+    <!-- Content slot -->
+    <div class="relative z-10">
+        <slot />
+    </div>
+</div>
+
+<style>
+    @keyframes blob-float-1 {
+        0% { transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg); }
+        20% { transform: translate(3%, 3%) scale(1.05) rotate(72deg) skew(5deg, 2deg); }
+        40% { transform: translate(6%, -2%) scale(1.1) rotate(144deg) skew(-3deg, 5deg); }
+        60% { transform: translate(2%, -4%) scale(0.95) rotate(216deg) skew(-5deg, -3deg); }
+        80% { transform: translate(-4%, 1%) scale(0.9) rotate(288deg) skew(2deg, -4deg); }
+        100% { transform: translate(0, 0) scale(1) rotate(360deg) skew(0deg, 0deg); }
+    }
+    
+    @keyframes blob-float-2 {
+        0% { transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg); }
+        25% { transform: translate(-4%, 2%) scale(1.08) rotate(-90deg) skew(-6deg, 3deg); }
+        50% { transform: translate(2%, 5%) scale(1.15) rotate(-180deg) skew(4deg, 6deg); }
+        75% { transform: translate(5%, -3%) scale(0.92) rotate(-270deg) skew(5deg, -4deg); }
+        100% { transform: translate(0, 0) scale(1) rotate(-360deg) skew(0deg, 0deg); }
+    }
+    
+    @keyframes blob-float-3 {
+        0% { transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg); }
+        30% { transform: translate(4%, -4%) scale(1.12) rotate(108deg) skew(7deg, -2deg); }
+        60% { transform: translate(-3%, -2%) scale(0.88) rotate(216deg) skew(-5deg, -7deg); }
+        100% { transform: translate(0, 0) scale(1) rotate(360deg) skew(0deg, 0deg); }
+    }
+    
+    @keyframes blob-float-4 {
+        0% { transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg); }
+        33% { transform: translate(-6%, -3%) scale(1.2) rotate(-120deg) skew(-8deg, 4deg); }
+        66% { transform: translate(4%, 5%) scale(0.85) rotate(-240deg) skew(6deg, 8deg); }
+        100% { transform: translate(0, 0) scale(1) rotate(-360deg) skew(0deg, 0deg); }
+    }
+    
+    @keyframes blob-float-5 {
+        0% { transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg); }
+        20% { transform: translate(8%, 2%) scale(1.15) rotate(72deg) skew(4deg, 6deg); }
+        40% { transform: translate(4%, 8%) scale(0.9) rotate(144deg) skew(-7deg, 3deg); }
+        60% { transform: translate(-5%, 5%) scale(1.1) rotate(216deg) skew(5deg, -8deg); }
+        80% { transform: translate(-7%, -3%) scale(0.95) rotate(288deg) skew(-3deg, -5deg); }
+        100% { transform: translate(0, 0) scale(1) rotate(360deg) skew(0deg, 0deg); }
+    }
+</style>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/blobshape@1.0.0/dist/index.min.js"></script>
+
+<script define:vars={{ instanceId, colors, blobCount, speed, opacity }}>
+    // We'll add dynamic blobs with JavaScript after the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        // Check if libraries are loaded globally
+        if (typeof anime !== 'undefined' && typeof createBlob !== 'undefined') {
+            // Initialize blobs with the global libraries
+            initializeBlobs(anime, createBlob);
+        } else {
+            console.error('Animation libraries not loaded properly');
+        }
+    });
+
+    function initializeBlobs(anime, createBlob) {
+        const container = document.getElementById(`blob-container-${instanceId}`);
+        if (!container) return;
+        
+        const containerRect = container.getBoundingClientRect();
+        
+        // Create each blob
+        for (let i = 0; i < blobCount; i++) {
+            // Create blob element
+            const blobElement = document.createElement('div');
+            blobElement.className = 'absolute';
+            container.appendChild(blobElement);
+            
+            const blobInner = document.createElement('div');
+            blobInner.className = 'blob';
+            blobElement.appendChild(blobInner);
+            
+            // Create SVG blob with more randomized size
+            const blobSize = 150 + Math.random() * 350;
+            const blob = createBlob({
+                size: blobSize,
+                growth: 4 + Math.random() * 4,
+                edges: 6 + Math.floor(Math.random() * 6),
+                seed: Math.random() * 100,
+                randomness: 3 + Math.random() * 6
+            });
+            
+            // Set initial position
+            const x = Math.random() * (containerRect.width - blobSize);
+            const y = Math.random() * (containerRect.height - blobSize);
+            
+            // Set initial velocity with more variation (direction and speed)
+            const vx = (Math.random() * 2 - 1) * speed * (0.5 + Math.random() * 1.5);
+            const vy = (Math.random() * 2 - 1) * speed * (0.5 + Math.random() * 1.5);
+            
+            // Set initial color
+            const colorIndex = i % colors.length;
+            const color = colors[colorIndex];
+            
+            // Apply blob SVG and style
+            blobInner.innerHTML = blob.outerHTML;
+            blobInner.style.position = 'absolute';
+            blobInner.style.left = `${x}px`;
+            blobInner.style.top = `${y}px`;
+            blobInner.style.width = `${blobSize}px`;
+            blobInner.style.height = `${blobSize}px`;
+            blobInner.style.fill = color;
+            // Randomize blur amount for more organic feel
+            const blurAmount = 20 + Math.floor(Math.random() * 20);
+            blobInner.style.filter = `blur(${blurAmount}px)`;
+            // Randomize opacity slightly for each blob
+            const opacityVariation = 0.7 + Math.random() * 0.6; // 70% to 130% of base opacity
+            blobInner.style.opacity = (opacity / 100) * opacityVariation;
+            blobInner.style.mixBlendMode = 'multiply';
+            
+            // Store blob data on the element for animation
+            blobInner._data = {
+                x, y, vx, vy,
+                size: blobSize,
+                colorIndex,
+                morphTimeout: null,
+                colorTimeout: null
+            };
+            
+            // Start color shifting for this blob
+            setTimeout(() => {
+                shiftColor(anime, blobInner, colors);
+            }, Math.random() * 5000);
+            
+            // Start morphing for this blob
+            setTimeout(() => {
+                morphBlob(anime, createBlob, blobInner);
+            }, Math.random() * 3000);
+        }
+        
+        // Start animation loop
+        animateBlobs(container);
+    }
+    
+    function animateBlobs(container) {
+        const containerRect = container.getBoundingClientRect();
+        const blobs = container.querySelectorAll('.blob');
+        const timestamp = Date.now() / 1000; // Current time in seconds for wave motion
+        
+        blobs.forEach(blob => {
+            const data = blob._data;
+            if (!data) return;
+            
+            // Add slight wave motion to velocity for more organic movement
+            // Each blob gets a unique wave pattern based on its index
+            if (!data.waveOffset) {
+                data.waveOffset = Math.random() * Math.PI * 2; // Random starting phase
+                data.waveFreq = 0.5 + Math.random() * 1.5; // Random frequency
+            }
+            
+            // Calculate wave influence (subtle changes to velocity)
+            const waveX = Math.sin(timestamp * data.waveFreq + data.waveOffset) * 0.2;
+            const waveY = Math.cos(timestamp * data.waveFreq + data.waveOffset + Math.PI/4) * 0.2;
+            
+            // Update position with wave influence
+            data.x += data.vx + waveX;
+            data.y += data.vy + waveY;
+            
+            // Bounce off edges with slight velocity change for unpredictability
+            if (data.x <= 0 || data.x >= containerRect.width - data.size) {
+                data.vx *= -1 * (0.9 + Math.random() * 0.2); // Slight random change in velocity
+                // Trigger morph and color shift on bounce
+                if (Math.random() > 0.5 && window.anime && window.createBlob) { // 50% chance to morph on bounce
+                    morphBlob(window.anime, window.createBlob, blob);
+                    shiftColor(window.anime, blob, colors);
+                }
+            }
+            
+            if (data.y <= 0 || data.y >= containerRect.height - data.size) {
+                data.vy *= -1 * (0.9 + Math.random() * 0.2); // Slight random change in velocity
+                // Trigger morph and color shift on bounce
+                if (Math.random() > 0.5 && window.anime && window.createBlob) { // 50% chance to morph on bounce
+                    morphBlob(window.anime, window.createBlob, blob);
+                    shiftColor(window.anime, blob, colors);
+                }
+            }
+            
+            // Apply new position with slight easing for smoother movement
+            blob.style.left = `${data.x}px`;
+            blob.style.top = `${data.y}px`;
+            
+            // Apply more dramatic reaching and distortion effects
+            if (!data.lastPulse || Date.now() - data.lastPulse > 4000 + Math.random() * 4000) {
+                // Create more dramatic reaching effect with scale and skew
+                const scale = 0.9 + Math.random() * 0.2; // More dramatic scale variation
+                const skewX = (Math.random() * 10 - 5); // Random skew between -5 and 5 degrees
+                const skewY = (Math.random() * 10 - 5); // Random skew between -5 and 5 degrees
+                const direction = Math.floor(Math.random() * 4); // Random direction for reaching
+                
+                // Create a reaching effect in a random direction
+                let transform = `scale(${scale}) skew(${skewX}deg, ${skewY}deg)`;
+                
+                // Add directional stretching for reaching effect
+                if (direction === 0) {
+                    transform += ` scaleY(1.2) translateY(-10%)`; // Reach up
+                } else if (direction === 1) {
+                    transform += ` scaleY(1.2) translateY(10%)`; // Reach down
+                } else if (direction === 2) {
+                    transform += ` scaleX(1.2) translateX(-10%)`; // Reach left
+                } else {
+                    transform += ` scaleX(1.2) translateX(10%)`; // Reach right
+                }
+                
+                blob.style.transform = transform;
+                blob.style.transition = 'transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                data.lastPulse = Date.now();
+                
+                // Reset transform after animation
+                setTimeout(() => {
+                    blob.style.transform = 'scale(1)';
+                }, 2500);
+            }
+        });
+        
+        requestAnimationFrame(() => animateBlobs(container));
+    }
+    
+    function morphBlob(anime, createBlob, blobElement) {
+        const data = blobElement._data;
+        if (!data) return;
+        
+        // Clear any pending morph
+        if (data.morphTimeout) {
+            clearTimeout(data.morphTimeout);
+        }
+        
+        // Create more distorted, reaching blob shapes
+        const newBlob = createBlob({
+            size: data.size,
+            growth: 5 + Math.random() * 7, // Higher growth for more dramatic distortion
+            edges: 5 + Math.floor(Math.random() * 5), // Fewer edges can create more dramatic points
+            seed: Math.random() * 100,
+            randomness: 6 + Math.random() * 8 // Higher randomness for more irregular shapes
+        });
+        
+        // Animate morphing
+        const oldPath = blobElement.querySelector('path');
+        const newPath = newBlob.querySelector('path');
+        
+        if (oldPath && newPath) {
+            const oldD = oldPath.getAttribute('d');
+            const newD = newPath.getAttribute('d');
+            
+            anime({
+                targets: oldPath,
+                d: [oldD, newD],
+                easing: 'easeInOutQuad',
+                duration: 2000 + Math.random() * 3000
+            });
+        } else {
+            // Fallback if paths aren't available
+            blobElement.innerHTML = newBlob.outerHTML;
+        }
+        
+        // Schedule next random morph
+        data.morphTimeout = setTimeout(() => {
+            if (window.anime && window.createBlob) {
+                morphBlob(window.anime, window.createBlob, blobElement);
+            }
+        }, 7000 + Math.random() * 8000);
+    }
+    
+    function shiftColor(anime, blobElement, colors) {
+        const data = blobElement._data;
+        if (!data) return;
+        
+        // Clear any pending color shift
+        if (data.colorTimeout) {
+            clearTimeout(data.colorTimeout);
+        }
+        
+        // Get current and next colors
+        const currentColor = colors[data.colorIndex];
+        data.colorIndex = (data.colorIndex + 1) % colors.length;
+        const nextColor = colors[data.colorIndex];
+        
+        // Animate color shift
+        anime({
+            targets: blobElement,
+            fill: [currentColor, nextColor],
+            easing: 'easeInOutSine',
+            duration: 3000 + Math.random() * 4000
+        });
+        
+        // Schedule next random color shift
+        data.colorTimeout = setTimeout(() => {
+            if (window.anime) {
+                shiftColor(window.anime, blobElement, colors);
+            }
+        }, 10000 + Math.random() * 10000);
+    }
+</script>

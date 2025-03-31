@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/portfolio/Hero.astro';
 import ImageBannerList from '../../components/portfolio/ImageBannerList.astro';
+import BlobBackground from '../../components/ui/BlobBackground.astro';
 
 const demoReels = [
     {
@@ -45,10 +46,12 @@ const demoReels = [
 
 <Layout title="Demo Reels | Skyler Yuda">
     <div id="reels">
-        <ImageBannerList 
-            items={demoReels} 
-            title="Featured Demo Reels" 
-            subtitle="Watch samples of my professional voice and on-camera work across various genres and styles."
-        />
+        <BlobBackground mood="professional" opacity={50} blobCount={5} speed={0.5}>
+            <ImageBannerList
+                items={demoReels} 
+                title="Featured Demo Reels" 
+                subtitle="Watch samples of my professional voice and on-camera work across various genres and styles."
+            />
+        </BlobBackground>
     </div>
 </Layout>

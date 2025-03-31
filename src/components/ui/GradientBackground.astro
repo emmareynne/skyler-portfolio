@@ -1,0 +1,66 @@
+---
+export interface Props {
+    opacity?: number;
+    colors?: {
+        from: string;
+        to: string;
+    };
+    blur?: number;
+    zIndex?: number;
+    position?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+}
+
+const { 
+    opacity = 30, 
+    colors = { from: '#ff80b5', to: '#9089fc' },
+    blur = 3,
+    zIndex = -10,
+    position = 'top'
+} = Astro.props;
+
+// Calculate position classes
+let positionClasses = '';
+switch (position) {
+    case 'top':
+        positionClasses = 'inset-x-0 -top-40 sm:-top-80';
+        break;
+    case 'bottom':
+        positionClasses = 'inset-x-0 -bottom-40 sm:-bottom-80';
+        break;
+    case 'left':
+        positionClasses = 'inset-y-0 -left-40 sm:-left-80';
+        break;
+    case 'right':
+        positionClasses = 'inset-y-0 -right-40 sm:-right-80';
+        break;
+    case 'top-left':
+        positionClasses = '-top-40 -left-40 sm:-top-80 sm:-left-80';
+        break;
+    case 'top-right':
+        positionClasses = '-top-40 -right-40 sm:-top-80 sm:-right-80';
+        break;
+    case 'bottom-left':
+        positionClasses = '-bottom-40 -left-40 sm:-bottom-80 sm:-left-80';
+        break;
+    case 'bottom-right':
+        positionClasses = '-bottom-40 -right-40 sm:-bottom-80 sm:-right-80';
+        break;
+}
+
+// Generate clip path for the gradient
+const clipPath = "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)";
+
+// Calculate z-index class
+const zIndexClass = `z-[${zIndex}]`;
+---
+
+<div
+    class={`absolute ${positionClasses} ${zIndexClass} transform-gpu overflow-hidden blur-${blur}xl`}
+    aria-hidden="true"
+>
+    <div
+        class={`relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[${colors.from}] to-[${colors.to}] opacity-${opacity} sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]`}
+        style={`clip-path: ${clipPath}`}
+    >
+    </div>
+</div>
