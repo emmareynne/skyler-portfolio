@@ -16,10 +16,20 @@ const {
 
 <head>
     <meta charset="UTF-8" />
-    <title>{title}</title>
     <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Performance optimization meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#111111">
+    <meta name="color-scheme" content="dark light">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     
     <!-- Alpine.js x-cloak directive to hide elements until Alpine is loaded -->
     <style>
@@ -29,38 +39,47 @@ const {
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
-    <!-- Fonts -->
+    <!-- Fonts optimized for performance -->
     <AstroFont
         config={[
             {
                 name: 'Metal Mania',
                 googleFontsURL: 'https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap',
                 src: [],
-                preload: true,
+                preload: false, // Only preload critical fonts
                 display: 'swap',
                 selector: '.font-metal',
                 fallback: 'sans-serif'
             },
             {
                 name: 'Faculty Glyphic',
-                googleFontsURL: 'https://fonts.googleapis.com/css2?family=Faculty+Glyphic:wght@400;500;600;700&display=swap',
+                googleFontsURL: 'https://fonts.googleapis.com/css2?family=Faculty+Glyphic:wght@400;700&display=swap', // Reduced weights
                 src: [],
-                preload: true,
+                preload: true, // Preload primary heading font
                 display: 'swap',
                 selector: '.font-heading',
                 fallback: 'sans-serif'
             },
             {
                 name: 'Frank Ruhl Libre',
-                googleFontsURL: 'https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;600;700&display=swap',
+                googleFontsURL: 'https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap', // Reduced weights
                 src: [],
-                preload: true,
+                preload: true, // Preload primary body font
                 display: 'swap',
                 selector: '.font-sans, .font-serif',
                 fallback: 'serif'
             }
         ]}
     />
+    
+    <!-- Resource hints for performance -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Add View Transitions API for page transitions -->
+    <meta name="view-transition" content="same-origin">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/images/background.jpg" as="image" fetchpriority="high">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content={title} />

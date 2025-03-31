@@ -23,7 +23,7 @@ import headshot from '../assets/headshots/1.png';
     
     <div class="text-white relative z-[10]">
         <main class="flex items-center justify-center py-6 sm:py-8 md:py-10 lg:py-12">
-            <div class="relative isolate">
+            <div class="relative isolate w-full">
                 <!-- <div
                     class="absolute top-0 right-0 left-1/2 -z-10 -ml-24 transform-gpu blur-3xl lg:ml-24 xl:ml-48"
                     aria-hidden="true"
@@ -36,10 +36,10 @@ import headshot from '../assets/headshots/1.png';
                 </div> -->
                 <div class="w-full">
                     <div class="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-8">
-                        <div
-                            class="mx-auto max-w-xs sm:max-w-md md:max-w-2xl gap-x-8 md:gap-x-10 lg:gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center"
-                        >
-                            <div class="relative w-full px-4 sm:px-6 md:px-8 lg:px-0 max-w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl slide-in-left">
+                        <!-- Grid layout with 3 columns, middle one empty on large screens -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+                            <!-- First column (left) - Text content -->
+                            <div class="col-span-1 lg:col-span-1 relative slide-in-left pl-0 sm:pl-0 md:pl-0 lg:pl-8 xl:pl-16">
                                 <h1 class="font-heading tracking-wide text-4xl font-semibold text-pretty text-white sm:text-6xl lg:text-7xl slide-in-left text-center sm:text-left break-words">
                                     Skyler Yuda
                                 </h1>
@@ -61,12 +61,14 @@ import headshot from '../assets/headshots/1.png';
                                     </a>
                                 </div>
                             </div>
-                            <div
-                                class="mt-10 md:mt-14 flex justify-center gap-6 sm:gap-8 sm:justify-start sm:pl-12 md:pl-16 lg:mt-0 lg:pl-0"
-                            >
-                                <div
-                                    class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-52 lg:order-last lg:pt-36 xl:order-none xl:pt-52"
-                                >
+                            
+                            <!-- Second column (middle) - Empty on large screens -->
+                            <div class="hidden lg:block lg:col-span-1"></div>
+                            <!-- Third column (right) - Image gallery -->
+                            <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                                <div class="flex justify-center gap-6 sm:gap-8 sm:justify-start lg:justify-end pr-0 sm:pr-0 md:pr-4 lg:pr-8 xl:pr-16">
+                                    <div class="space-y-8 pt-8 sm:pt-12 lg:pt-16 w-44 sm:w-48 md:w-52 lg:w-56">
+
                                     <div class="relative slide-in-right" style="animation-delay: 100ms;">
                                         <img
                                             src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
